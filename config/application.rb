@@ -20,7 +20,12 @@ module Nephi
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    #
+
+    # Log to STDOUT by default
+    config.logger = ActiveSupport::Logger.new(STDOUT)
+      .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+      .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
   end
